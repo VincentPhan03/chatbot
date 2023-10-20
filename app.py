@@ -7,12 +7,12 @@ openai.api_key = st.secrets["api_secret"]
 
 def generate_respone(prompt):
     completions = openai.Completion.create(
-        engine = "gpt-3.5-turbo",
+        engine = "text-davinci-003",
         prompt = prompt, 
         max_tokens = 1024,
         n = 1,
         stop = None,
-        temp = 0.5,
+        temperature = 0.5,
     )
     message = completions.choices[0].text
     return message
@@ -26,7 +26,7 @@ if 'past' not in st.session_state:
     st.session_state['past'] = []
 
 def get_text():
-    input = st.text_input("You: ", "What's good pussy", key=input)
+    input = st.text_input("You: ", "What's good pussy", key="input")
     return input
 
 user_input = get_text()
