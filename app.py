@@ -5,8 +5,6 @@ from streamlit_chat import message
 
 openai.api_key = st.secrets["api_secret"]
 
-
-
 def generate_respone(prompt):
     response = openai.ChatCompletion.create(
     model="gpt-3.5-turbo",
