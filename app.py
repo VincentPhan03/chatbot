@@ -5,17 +5,17 @@ from streamlit_chat import message
 
 openai.api_key = st.secrets["api_secret"]
 
+
+
 def generate_respone(prompt):
-    completions = openai.Completion.create(
-        engine = "text-davinci-003",
-        prompt = prompt, 
-        max_tokens = 1024,
-        n = 1,
-        stop = None,
-        temperature = 0.5,
-    )
-    message = completions.choices[0].text
-    return message
+    response = openai.ChatCompletion.create(
+    model="gpt-3.5-turbo",
+    messages=[
+        {"role": "system", "content": prompt},
+    ])
+
+    return response['choices'][0]['message']['content']
+
 
 st.title("Vincent's Chatbot")
 
@@ -26,7 +26,7 @@ if 'past' not in st.session_state:
     st.session_state['past'] = []
 
 def get_text():
-    input = st.text_input("You: ", "What's good pussy", key="input")
+    input = st.text_input("You: ", "How are you doing", key="input")
     return input
 
 user_input = get_text()
